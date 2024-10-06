@@ -66,13 +66,14 @@ int main(){
     scanf("%f", &temp);
     printf("Choose the current scale (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
     scanf("%d", &tempScale);
+    if (tempScale == 3 && temp < 0){ //checks if a kelvin value is invalid (below 0)
+        printf("Kelvin temperatures cannot go below 0\n");
+        system("Pause");
+        return 0;
+    }
     printf("Convert to (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
     scanf("%d", &tempConvert);
 
-    if (tempScale == 3 && temp < 0){ //checks if a kelvin value is invalid (below 0)
-        printf("Kelvin temperatures cannot go below 0\n");
-        return 0;
-    }
 
     if (tempScale == 2){
         celsius = fahrenheit_to_celsius(temp);
@@ -84,6 +85,9 @@ int main(){
             converted = celsius;
             printf("The converted temperature is: %f°C. \n", converted);
         }  
+        else if (tempConvert == 2){
+            printf("Temperature is already in Fahrenheit. \n");
+        }
     }
     else if (tempScale == 3){
         celsius = kelvin_to_celsius(temp);
@@ -95,6 +99,9 @@ int main(){
             converted = celsius;
             printf("The converted temperature is: %f°C. \n", converted);
         } 
+        else if (tempConvert == 3){
+            printf("Temperature is already in Kelvin. \n");
+        }
     }
     else if (tempScale == 1){
         celsius = temp;
@@ -105,6 +112,9 @@ int main(){
         else if (tempConvert == 3){
             converted = celsius_to_kelvin(temp);
             printf("The converted temperature is: %fK. \n", converted);
+        }
+        else if (tempConvert == 1){
+            printf("Temperature is already in Celsius. \n");
         }
     }
 
