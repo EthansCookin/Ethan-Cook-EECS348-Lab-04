@@ -1,37 +1,25 @@
 #include <stdio.h>
 
 float celsius_to_fahrenheit(float celsius){ //converts celsius values to fahrenheit values
-    float fahrenheit = (9.0/5.0) * celsius + 32.0;
-    return fahrenheit;
+    return (9.0/5.0) * celsius + 32.0;
 }
-
 float fahrenheit_to_celsius(float fahrenheit){ //converts fahrenheit values to celsius values
-    float celsius = (fahrenheit - 32.0) * (5.0/9.0);
-    return celsius;
+    return (fahrenheit - 32.0) * (5.0/9.0);
 }
-
 float celsius_to_kelvin(float celsius){ //converts celsius values to kelvin values
-    float kelvin = celsius + 273.15;
-    return kelvin;
+    return celsius + 273.15;
 }
-
 float kelvin_to_celsius(float kelvin){ //converts kelvin values to celsius values
-    float celsius = kelvin - 273.15;
-    return celsius;
+    return kelvin - 273.15;
 }
-
 float fahrenheit_to_kelvin(float fahrenheit){ //converts fahrenheit values to kelvin values by first converting to celsius, then to kelvin
     float celsius = fahrenheit_to_celsius(fahrenheit);
-    float kelvin = celsius_to_kelvin(celsius);
-    return kelvin;
+    return celsius_to_kelvin(celsius);
 }
-
 float kelvin_to_fahrenheit(float kelvin){ //converts kelvin values to kelvin values by first converting to celsius, then to fahrenheit
     float celsius = kelvin_to_celsius(kelvin);
-    float fahrenheit = celsius_to_fahrenheit(celsius);
-    return fahrenheit;
+    return celsius_to_fahrenheit(celsius);
 }
-
 
 void categorize_temperature(float temp){ //takes a temperature value (in celsius) and outputs the category of that temperature alongside a weather advisory
     if (temp <= 0){
@@ -68,53 +56,55 @@ int main(){
     scanf("%d", &tempScale);
     if (tempScale == 3 && temp < 0){ //checks if a kelvin value is invalid (below 0)
         printf("Kelvin temperatures cannot go below 0\n");
-        system("Pause");
-        return 0;
+        printf("Enter the temperature: ");
+        scanf("%f", &temp);
+        printf("Choose the current scale (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
+        scanf("%d", &tempScale);
     }
     printf("Convert to (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
     scanf("%d", &tempConvert);
 
-
-    if (tempScale == 2){
-        celsius = fahrenheit_to_celsius(temp);
-        if (tempConvert == 3){
-            converted = fahrenheit_to_kelvin(temp);
-            printf("The converted temperature is: %fK. \n", converted);
+    if (tempScale == 1){ //section to run if given temperature is in Celsius
+        celsius = temp;
+        if (tempConvert == 2){ //converts to Fahrenheit
+            converted = celsius_to_fahrenheit(temp);
+            printf("The converted temperature is: %.2f°F. \n", converted);
         }
-        else if (tempConvert == 1){
+        else if (tempConvert == 3){ //converts to Kelvin
+            converted = celsius_to_kelvin(temp);
+            printf("The converted temperature is: %.2fK. \n", converted);
+        }
+        else if (tempConvert == 1){ //runs if temperature conversion unit is also Celsius
+            printf("Temperature is already in Celsius. \n");
+        }
+    }
+
+    else if (tempScale == 2){ //section to run if given temperature is in Fahrenheit
+        celsius = fahrenheit_to_celsius(temp); //gets the celsius temperature no matter what, as that value is used for the categorization
+        if (tempConvert == 3){ //converts to Kelvin
+            converted = fahrenheit_to_kelvin(temp);
+            printf("The converted temperature is: %.2fK. \n", converted);
+        }
+        else if (tempConvert == 1){ //converts to Celsius
             converted = celsius;
-            printf("The converted temperature is: %f°C. \n", converted);
+            printf("The converted temperature is: %.2f°C. \n", converted);
         }  
-        else if (tempConvert == 2){
+        else if (tempConvert == 2){ //runs if temperature conversion unit is also Fahrenheit
             printf("Temperature is already in Fahrenheit. \n");
         }
     }
     else if (tempScale == 3){
-        celsius = kelvin_to_celsius(temp);
-        if (tempConvert == 2){
+        celsius = kelvin_to_celsius(temp); //gets the celsius temperature no matter what, as that value is used for the categorization
+        if (tempConvert == 2){ //converts to Fahrenheit
             converted = kelvin_to_fahrenheit(temp);
-            printf("The converted temperature is: %f°F. \n", converted);
+            printf("The converted temperature is: %.2f°F. \n", converted);
         }
-        else if (tempConvert == 1){
+        else if (tempConvert == 1){ //converts to Celsius
             converted = celsius;
-            printf("The converted temperature is: %f°C. \n", converted);
+            printf("The converted temperature is: %.2f°C. \n", converted);
         } 
-        else if (tempConvert == 3){
+        else if (tempConvert == 3){ //runs if the temperature conversion unit is also Kelvin
             printf("Temperature is already in Kelvin. \n");
-        }
-    }
-    else if (tempScale == 1){
-        celsius = temp;
-        if (tempConvert == 2){
-            converted = celsius_to_fahrenheit(temp);
-            printf("The converted temperature is: %f°F. \n", converted);
-        }
-        else if (tempConvert == 3){
-            converted = celsius_to_kelvin(temp);
-            printf("The converted temperature is: %fK. \n", converted);
-        }
-        else if (tempConvert == 1){
-            printf("Temperature is already in Celsius. \n");
         }
     }
 
