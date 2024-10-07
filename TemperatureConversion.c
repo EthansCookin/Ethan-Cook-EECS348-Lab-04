@@ -55,11 +55,13 @@ int main(){
     printf("Choose the current scale (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
     scanf("%d", &tempScale);
     if (tempScale == 3 && temp < 0){ //checks if a kelvin value is invalid (below 0)
-        printf("Kelvin temperatures cannot go below 0\n");
-        printf("Enter the temperature: ");
-        scanf("%f", &temp);
-        printf("Choose the current scale (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
-        scanf("%d", &tempScale);
+        while(temp < 0){
+            printf("Kelvin temperatures cannot go below 0\n");
+            printf("Enter the temperature: ");
+            scanf("%f", &temp);
+            printf("Choose the current scale (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
+            scanf("%d", &tempScale);
+        }
     }
     printf("Convert to (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
     scanf("%d", &tempConvert);
